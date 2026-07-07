@@ -84,5 +84,4 @@ This project is for educational purposes only. Be respectful of HeadHunter's Ter
 
 ---
 **Author / Автор:** [felen000](https://github.com/felen000)
-```
 
