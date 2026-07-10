@@ -165,6 +165,7 @@ async def parse_vacancy(vacancy_locator: Locator) -> Vacancy:
 
     return vacancy
 
+# TODO: problem with infinite scroll
 
 async def get_vacancies_from_page(page: Page) -> List[Vacancy]:
     vacancies_list: List[Vacancy] = []
@@ -220,10 +221,10 @@ async def get_all_vacancies(
 
         print("Страница с результатами поиска открыта.")
 
-        page_counter: int = 0
+        page_counter: int = 1
 
         while True:
-            if pages_number_to_process != 0 and page_counter >= pages_number_to_process:
+            if pages_number_to_process != 0 and page_counter > pages_number_to_process:
                 break
 
             await search_result_page.locator(
@@ -235,13 +236,13 @@ async def get_all_vacancies(
             )
             parsed_vacancies.extend(vacancies_from_page)
 
-            next_btn_locator: Locator = search_result_page.locator(
-                '[data-qa="pager-next"]'
-            )
-
-            page_counter += 1
             print(f"Страница {page_counter} обработана.")
             export_to_excel(parsed_vacancies)
+
+            page_counter += 1
+            next_btn_locator: Locator = search_result_page.locator(
+                '[data-qa="pager-page"]'
+            ).and_(search_result_page.get_by_text(str(page_counter)))
 
             if await next_btn_locator.count() > 0:
                 await next_btn_locator.click()
