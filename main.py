@@ -165,9 +165,22 @@ async def parse_vacancy(vacancy_locator: Locator) -> Vacancy:
 
     return vacancy
 
-# TODO: problem with infinite scroll
 
 async def get_vacancies_from_page(page: Page) -> List[Vacancy]:
+
+    try:
+        await page.locator('[data-qa="pager-block"]').wait_for(timeout=3000)
+    except:
+        pass
+    try:
+        await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+        await page.locator('[data-qa="vacancy-serp__vacancy"]').nth(30).wait_for(
+            timeout=3000
+        )
+
+    except:
+        pass
+
     vacancies_list: List[Vacancy] = []
     vacancies_locators_list: List[Locator] = await page.locator(
         '[data-qa="vacancy-serp__vacancy"]'
