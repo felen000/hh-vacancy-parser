@@ -51,17 +51,18 @@ async def get_search_results_page(
         '[data-qa="filter-select-area"]'
     ).locator('[data-qa="chips-trigger-input"]')
     await region_input_locator.click()
+    await new_page.wait_for_timeout(random.randint(500, 1000))
 
     clear_button: Locator = new_page.locator('[data-qa="search-filter-clear"]')
     await clear_button.wait_for(state="visible")
     await clear_button.click()
-    await new_page.wait_for_timeout(random.randint(500, 1000))
 
     await region_input_locator.fill(search_region)
+    await new_page.wait_for_timeout(random.randint(500, 800))
     await new_page.locator('[data-qa="drop"]').locator("label").first.click()
-    print("Данные для поиска введены.")
+    await new_page.keyboard.press("Escape")
     await new_page.wait_for_timeout(random.randint(500, 1000))
-
+    print("Данные для поиска введены.")
     # find submit button and click to go to search result page
     await new_page.locator('[data-qa="search-drawer-filters-submit"]').click()
 

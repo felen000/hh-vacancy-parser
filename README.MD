@@ -83,5 +83,5 @@ This project is for educational purposes only. Be respectful of HeadHunter's Ter
 Этот проект создан исключительно в образовательных целях. Пожалуйста, соблюдайте правила пользования сайтом HeadHunter.
 
 ---
-**Author / Автор:** [felen000](https://github.com/felen000)
+**Author / Автор:** [Arsen Sapakhov/felen00](https://github.com/felen000)
 
