@@ -255,7 +255,7 @@ async def get_all_vacancies(
             page_counter += 1
             next_btn_locator: Locator = search_result_page.locator(
                 '[data-qa="pager-page"]'
-            ).and_(search_result_page.get_by_text(str(page_counter)))
+            ).and_(search_result_page.get_by_text(str(page_counter), exact=True))
 
             if await next_btn_locator.count() > 0:
                 await next_btn_locator.click()
